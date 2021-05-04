@@ -8,18 +8,20 @@ import 'package:movie_explorer/Models/movieEntry.dart' show MovieEntry;
 //DATA
 import 'API_data.dart';
 
-//updateMovieList function runs getMovieList func. and refreshes moviesList for each search request
-//Transfers the string value to getMovieList.
+//updateMovieList() fires getMovieList func. and refreshes moviesList for each search request.
+//Transfers the string value to getMovieList(). This function is not on the widget tree, so we
+//cannot use context. Solution is getting state as parameter.
 void updateMovieList(String _searchString, _state) async {
-  //Wipes the former search list
+  //Wipes the former search list.
   _state.clear();
   final List<MovieEntry> _tempResult = await getMovieList(_searchString);
-  //Inserts new elements to list and trigger notification.
+  //Inserts new elements to list and notifies listeners.
   await _state.insert(_tempResult);
   print(_tempResult.length);
 }
 
-//getMoviesList makes http GET request with given _searchString value.
+//getMoviesList() makes http GET request with given _searchString value.
+//ie. getMoviesList("Godfather");
 Future<List<MovieEntry>> getMovieList(String _searchString) async {
   final Uri _uri = Uri.https(API_url, "/", {
     "s": _searchString,
@@ -28,7 +30,7 @@ Future<List<MovieEntry>> getMovieList(String _searchString) async {
 
   final _response = await http.get(_uri);
 
-  //handle response&errors
+  //handle response&errors.
   switch (_response.statusCode) {
     case 200:
       final _tempResult = jsonDecode(_response.body);

@@ -1,5 +1,6 @@
 //PACKAGES
 import 'package:flutter/material.dart';
+import 'package:movie_explorer/Widgets/movieGrid.dart';
 import 'package:provider/provider.dart';
 
 //CORE
@@ -99,11 +100,19 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: 12.0),
             Expanded(
-              child: Container(
-                color: Theme.of(context).primaryColorLight,
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
-                child: Container(),
-              ),
+              child: Consumer<MovieList>(builder: (context, state, widget) {
+                final _movieList = state.movieList;
+                return state.movieList.length == 0
+                    ? Container(
+                        child: Image.asset("assets/Empty.png"),
+                      )
+                    : Container(
+                        color: Theme.of(context).backgroundColor,
+                        padding:
+                            EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                        child: MovieGrid(movieList: _movieList),
+                      );
+              }),
             ),
           ],
         ),

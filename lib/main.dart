@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 //SCREENS
 import 'Screens/home.dart' show Home;
-//import 'Screens/favorites.dart' show Favorites;
+import 'Screens/favorites.dart' show Favorites;
 
 //STATES
 import 'States/states.dart' show MovieList, FavoritesList;
@@ -23,10 +23,16 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Movie Explorer',
+        initialRoute: "/home",
+        routes: {
+          "/home": (context) => Home(),
+          "/favorites": (context) => Favorites(),
+        },
         theme: ThemeData(
           primaryColor: Color(0xFF78cfba),
           primaryColorDark: Color(0xFF459d89),
-          primaryColorLight: Colors.grey[300],
+          primaryColorLight: Color(0xDD78cfba),
+          backgroundColor: Colors.grey[300],
           accentColor: Color(0xFF181f33),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(

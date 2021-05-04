@@ -2,7 +2,8 @@
 class MovieEntry {
   final String title;
   final String year;
-  final String imdbID;
+  final String
+      imdbID; //imdbID variable is not needed currently. This will be used as item key and it is here for just in case needed in the future updates.
   final String type;
   final String posterURL;
 
