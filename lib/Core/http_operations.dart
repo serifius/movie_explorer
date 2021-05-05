@@ -34,11 +34,17 @@ Future<List<MovieEntry>> getMovieList(String _searchString) async {
   switch (_response.statusCode) {
     case 200:
       final _tempResult = jsonDecode(_response.body);
-      //API response contains an array called "Search".
-      Iterable _result = _tempResult["Search"];
-      return _result
-          .map((movieItem) => MovieEntry.fromJson(movieItem))
-          .toList();
+      if (_tempResult["Error"] == "Movie not found!") {
+        throw Exception("Film bulunamadı!");
+      } else if (_tempResult["Error"] == "Too many results.") {
+        throw Exception("Çok fazla sonuç!");
+      } else {
+        //API response contains an array called "Search".
+        Iterable _result = _tempResult["Search"];
+        return _result
+            .map((movieItem) => MovieEntry.fromJson(movieItem))
+            .toList();
+      }
       break;
     default:
       throw Exception("Bağlantı sırasında bir hata oluştu!");

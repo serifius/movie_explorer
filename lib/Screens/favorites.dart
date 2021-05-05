@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+//CORE
+import 'package:movie_explorer/Core/alertHandler.dart' show alertHandler;
+
 //MODELS
 import 'package:movie_explorer/States/states.dart' show FavoritesList;
 
@@ -16,7 +19,15 @@ class Favorites extends StatelessWidget {
         actions: [
           Consumer<FavoritesList>(builder: (context, state, widget) {
             return TextButton(
-              onPressed: () => {state.clear()},
+              onPressed: () => {
+                alertHandler(
+                    "Tüm favori listeniz silinecek! Devam etmek istiyor musunuz?",
+                    context,
+                    state,
+                    true,
+                    false,
+                    () {})
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

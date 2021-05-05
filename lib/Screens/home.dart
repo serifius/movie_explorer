@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 //CORE
 import 'package:movie_explorer/Core/http_operations.dart' show updateMovieList;
+import 'package:movie_explorer/Core/alertHandler.dart' show alertHandler;
 
 //MODELS
 import 'package:movie_explorer/States/states.dart' show MovieList;
@@ -82,7 +83,8 @@ class Home extends StatelessWidget {
                           if (searchController.text.isNotEmpty) {
                             updateMovieList(searchController.text, state);
                           } else {
-                            print("EMPTY");
+                            alertHandler("Lütfen arama kutusuna metin girin",
+                                context, state, false, false, () {});
                           }
                         },
                         child: Row(
