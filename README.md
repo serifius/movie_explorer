@@ -3,6 +3,7 @@
 Just another flutter project that uses omdbAPI to fetch movies.
 
 ## Preview
+<img src="https://github.com/serifius/movie_explorer/blob/main/preview.gif" width="300px"/>
 
 ## Get Compiled APK
 Click on the logo to download apk file.
