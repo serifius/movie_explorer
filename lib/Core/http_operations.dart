@@ -40,17 +40,14 @@ Future<List<MovieEntry>> getMovieList(
     case 200:
       final _tempResult = jsonDecode(_response.body);
       if (_tempResult["Error"] == "Movie not found!") {
-        alertHandler(
-            "Hiç film bulunamadı!", context, _state, false, false, () {});
+        alertHandler("Hiç film bulunamadı!", context, _state, false);
         return [];
       } else if (_tempResult["Error"] == "Too many results.") {
         alertHandler(
             "Çok fazla sonuç! Lütfen aramanızı detaylandırın. ör: 'God' -> 'Godfather' ",
             context,
             _state,
-            false,
-            false,
-            () {});
+            false);
         return [];
       } else {
         //API response contains an array called "Search".

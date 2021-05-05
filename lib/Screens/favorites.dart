@@ -24,9 +24,7 @@ class Favorites extends StatelessWidget {
                     "Tüm favori listeniz silinecek! Devam etmek istiyor musunuz?",
                     context,
                     state,
-                    true,
-                    false,
-                    () {})
+                    true)
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -32,7 +32,7 @@ class FavoritesList with ChangeNotifier {
   }
 
   remove(MovieEntry entry) {
-    _favoritesList.removeWhere((_fav) => _fav.title == entry.title);
+    _favoritesList.removeWhere((_fav) => _fav.imdbID == entry.imdbID);
     notifyListeners();
   }
 

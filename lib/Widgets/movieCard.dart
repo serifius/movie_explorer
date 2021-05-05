@@ -93,8 +93,8 @@ class MovieCard extends StatelessWidget {
                         return IconButton(
                           //Icon will change if added to favorites
                           icon: iconSwitcher(_favoritesListState, movie),
-                          onPressed: () =>
-                              favoritesHandler(_favoritesListState, movie),
+                          onPressed: () => favoritesHandler(
+                              _favoritesListState, movie, context),
                           color: Theme.of(context).accentColor,
                         );
                       }),

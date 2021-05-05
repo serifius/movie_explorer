@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:movie_explorer/States/states.dart';
 
-//example usage: alertHandler("Lütfen arama kutusuna metin girin", context, state, false, false, (){});
+//example usage: alertHandler("Lütfen arama kutusuna metin girin", context, null, false, false, null);
 void alertHandler(
   String content,
   context,
-  state,
+  FavoritesList state,
   bool buttonClear,
-  bool buttonSure,
-  void Function() onPressed,
 ) {
   //Buttons
   Widget _buttonback = TextButton(
       onPressed: () => Navigator.of(context).pop(), child: Text("Geri"));
+
   Widget _buttonClear = TextButton(
       onPressed: () {
         state.clear();
@@ -19,10 +19,6 @@ void alertHandler(
       },
       child: Text("Temizle"),
       style: TextButton.styleFrom(primary: Colors.red));
-  Widget _buttonSure = TextButton(
-      onPressed: onPressed,
-      child: Text("Eminim"),
-      style: TextButton.styleFrom(primary: Theme.of(context).primaryColor));
 
   //AlertDialog Widget
   AlertDialog modularAlert = AlertDialog(
@@ -32,7 +28,6 @@ void alertHandler(
     ),
     actions: [
       buttonClear ? _buttonClear : null,
-      buttonSure ? _buttonSure : null,
       _buttonback,
     ],
   );

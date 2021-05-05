@@ -85,7 +85,7 @@ class Home extends StatelessWidget {
                                 searchController.text, state, context);
                           } else {
                             alertHandler("Lütfen arama kutusuna metin girin",
-                                context, state, false, false, () {});
+                                context, null, false);
                           }
                         },
                         child: Row(

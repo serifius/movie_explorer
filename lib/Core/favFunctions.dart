@@ -6,11 +6,34 @@ import 'package:movie_explorer/States/states.dart' show FavoritesList;
 //MODELS
 import 'package:movie_explorer/Models/movieEntry.dart' show MovieEntry;
 
-void favoritesHandler(FavoritesList _favoritesListState, MovieEntry movie) {
+dynamic favoritesHandler(
+    FavoritesList _favoritesListState, MovieEntry movie, context) {
   List<MovieEntry> _favoritesList = _favoritesListState.favoritesList;
   switch (_favoritesList.contains(movie)) {
     case true:
-      _favoritesListState.remove(movie);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Text(
+                "Bu film favorilerden kaldırılacak! Emin misiniz?",
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      _favoritesListState.remove(movie);
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Eminim"),
+                    style: TextButton.styleFrom(
+                        primary: Theme.of(context).primaryColor)),
+                TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text("Geri"))
+              ],
+            );
+          });
       break;
     case false:
       _favoritesListState.insert(movie);
