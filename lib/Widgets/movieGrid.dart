@@ -23,11 +23,7 @@ class MovieGrid extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int i) {
         return new MovieCard(
-            title: movieList[i].title,
-            year: movieList[i].year,
-            type: movieList[i].type,
-            posterUrl: movieList[i].posterURL,
-            key: Key(movieList[i].imdbID));
+            movie: movieList[i], key: Key(movieList[i].imdbID));
       },
     );
   }

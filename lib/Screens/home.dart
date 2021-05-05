@@ -1,6 +1,5 @@
 //PACKAGES
 import 'package:flutter/material.dart';
-import 'package:movie_explorer/Widgets/movieGrid.dart';
 import 'package:provider/provider.dart';
 
 //CORE
@@ -8,6 +7,9 @@ import 'package:movie_explorer/Core/http_operations.dart' show updateMovieList;
 
 //MODELS
 import 'package:movie_explorer/States/states.dart' show MovieList;
+
+//WIDGETS
+import 'package:movie_explorer/Widgets/movieGrid.dart' show MovieGrid;
 
 class Home extends StatelessWidget {
   final String _logoFile =
@@ -21,7 +23,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: () => {},
+            onPressed: () => {Navigator.pushNamed(context, "/favorites")},
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,23 +1,30 @@
+//PACKAGES
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+//STATES
+import 'package:movie_explorer/States/states.dart' show FavoritesList;
+
+//MODELS
+import 'package:movie_explorer/Models/movieEntry.dart' show MovieEntry;
+
+//CORE
+import 'package:movie_explorer/Core/favFunctions.dart'
+    show favoritesHandler, iconSwitcher;
 
 class MovieCard extends StatelessWidget {
-  final String title;
-  final String year;
-  final String type;
-  final String posterUrl;
+  final MovieEntry movie;
 
-  MovieCard(
-      {@required this.title,
-      @required this.year,
-      @required this.type,
-      @required this.posterUrl,
-      @required Key key})
-      : super(key: key);
+  MovieCard({@required this.movie, @required Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _radiusTen = BorderRadius.circular(10.0);
     final _textStyle = TextStyle(color: Colors.white);
+    final String title = movie.title;
+    final String year = movie.year;
+    final String type = movie.type;
+    final String posterUrl = movie.posterURL;
 
     return Card(
       elevation: 3.0,
@@ -31,25 +38,22 @@ class MovieCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            FittedBox(
-              fit: BoxFit.cover,
-              child: Image.network(
-                posterUrl,
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent loading) {
-                  if (loading == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loading.expectedTotalBytes != null
-                          ? loading.cumulativeBytesLoaded /
-                              loading.expectedTotalBytes
-                          : null,
-                    ),
-                  );
-                },
-                cacheHeight: 300,
-                filterQuality: FilterQuality.medium,
-              ),
+            Image.network(
+              posterUrl,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent loading) {
+                if (loading == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loading.expectedTotalBytes != null
+                        ? loading.cumulativeBytesLoaded /
+                            loading.expectedTotalBytes
+                        : null,
+                  ),
+                );
+              },
+              cacheHeight: 300,
+              filterQuality: FilterQuality.medium,
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -83,12 +87,17 @@ class MovieCard extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      child: IconButton(
-                        //Icon will change if added to favorites
-                        icon: Icon(Icons.favorite_border_sharp),
-                        onPressed: () {},
-                        color: Theme.of(context).accentColor,
-                      ),
+                      child: Consumer<FavoritesList>(
+                          builder: (context, state, widget) {
+                        final _favoritesListState = state;
+                        return IconButton(
+                          //Icon will change if added to favorites
+                          icon: iconSwitcher(_favoritesListState, movie),
+                          onPressed: () =>
+                              favoritesHandler(_favoritesListState, movie),
+                          color: Theme.of(context).accentColor,
+                        );
+                      }),
                     ),
                   ],
                 ),

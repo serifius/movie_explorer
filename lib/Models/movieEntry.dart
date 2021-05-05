@@ -6,6 +6,7 @@ class MovieEntry {
       imdbID; //imdbID variable is not needed currently. This will be used as item key and it is here for just in case needed in the future updates.
   final String type;
   final String posterURL;
+  bool isFav = false;
 
   MovieEntry({this.title, this.year, this.imdbID, this.type, this.posterURL});
 
