@@ -81,7 +81,8 @@ class Home extends StatelessWidget {
                         ),
                         onPressed: () {
                           if (searchController.text.isNotEmpty) {
-                            updateMovieList(searchController.text, state);
+                            updateMovieList(
+                                searchController.text, state, context);
                           } else {
                             alertHandler("Lütfen arama kutusuna metin girin",
                                 context, state, false, false, () {});

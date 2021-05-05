@@ -2,6 +2,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+//CORE
+import 'alertHandler.dart' show alertHandler;
+
 //MODELS
 import 'package:movie_explorer/Models/movieEntry.dart' show MovieEntry;
 
@@ -11,10 +14,11 @@ import 'API_data.dart';
 //updateMovieList() fires getMovieList func. and refreshes moviesList for each search request.
 //Transfers the string value to getMovieList(). This function is not on the widget tree, so we
 //cannot use context. Solution is getting state as parameter.
-void updateMovieList(String _searchString, _state) async {
+void updateMovieList(String _searchString, _state, context) async {
   //Wipes the former search list.
   _state.clear();
-  final List<MovieEntry> _tempResult = await getMovieList(_searchString);
+  final List<MovieEntry> _tempResult =
+      await getMovieList(_searchString, _state, context);
   //Inserts new elements to list and notifies listeners.
   await _state.insert(_tempResult);
   print(_tempResult.length);
@@ -22,7 +26,8 @@ void updateMovieList(String _searchString, _state) async {
 
 //getMoviesList() makes http GET request with given _searchString value.
 //ie. getMoviesList("Godfather");
-Future<List<MovieEntry>> getMovieList(String _searchString) async {
+Future<List<MovieEntry>> getMovieList(
+    String _searchString, _state, context) async {
   final Uri _uri = Uri.https(API_url, "/", {
     "s": _searchString,
     "apikey": API_key
@@ -35,9 +40,18 @@ Future<List<MovieEntry>> getMovieList(String _searchString) async {
     case 200:
       final _tempResult = jsonDecode(_response.body);
       if (_tempResult["Error"] == "Movie not found!") {
-        throw Exception("Film bulunamadı!");
+        alertHandler(
+            "Hiç film bulunamadı!", context, _state, false, false, () {});
+        return [];
       } else if (_tempResult["Error"] == "Too many results.") {
-        throw Exception("Çok fazla sonuç!");
+        alertHandler(
+            "Çok fazla sonuç! Lütfen aramanızı detaylandırın. ör: 'God' -> 'Godfather' ",
+            context,
+            _state,
+            false,
+            false,
+            () {});
+        return [];
       } else {
         //API response contains an array called "Search".
         Iterable _result = _tempResult["Search"];
