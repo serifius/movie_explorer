@@ -1,6 +1,6 @@
 # Movie Explorer
 
-Just another flutter project that uses omdbAPI to fetch movies.
+Just another flutter project that uses omdbAPI to list movies.
 
 ## Preview
 <img src="https://github.com/serifius/movie_explorer/blob/main/preview.gif" width="300px"/>
