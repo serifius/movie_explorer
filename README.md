@@ -8,7 +8,7 @@ Just another flutter project that uses omdbAPI to list movies.
 ## Get Compiled APK
 Click on the logo to download apk file.
 
-<a href="https://github.com/serifius/movie_explorer/raw/main/app-release.apk"><img src="https://github.com/serifius/movie_explorer/blob/main/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"/></a>
+<a href="https://github.com/serifius/movie_explorer/releases/download/1.0.1%2B1/app-release.apk"><img src="https://github.com/serifius/movie_explorer/blob/main/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"/></a>
 
 ## Dependencies
 ``` yaml
